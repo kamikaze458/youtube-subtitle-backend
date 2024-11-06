@@ -35,7 +35,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('https://api.openai.com/v1/chat/completions'),
+        Uri.parse('https://youtube-subtitle-backend.onrender.com'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $apiKey',
