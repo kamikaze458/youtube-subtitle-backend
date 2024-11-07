@@ -6,7 +6,7 @@ import openai
 app = Flask(__name__)
 
 # Configura la clave de OpenAI desde una variable de entorno
-openai.api_key = os.getenv("OPENAIsk-svcacct-3BdWvXxprpXNZddAn-gugaRsA7j7F_Z5omlgdeRFsqbxeTnJItV5pnWdI5eGdT3BlbkFJ1inkHemAbgRuOlQWF88bokJWncbkOQ02R1lEsrVCbHLwhvgqZXGYqG_IN6FfQA_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route('/get_subtitles', methods=['POST'])
 def get_subtitles():
@@ -15,6 +15,7 @@ def get_subtitles():
     video_id = video_url.split("v=")[-1]  # Extrae el ID del video desde el URL
     
     try:
+        # Obtiene los subtítulos en español o inglés
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['es', 'en'])
         subtitles = " ".join([item['text'] for item in transcript])
 
@@ -33,4 +34,4 @@ def get_subtitles():
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000)
